@@ -16,7 +16,7 @@ pveam download ${storage_name} ${template_name}
 
 # Create container
 pct create ${build_host_id} ${storage_name}:vztmpl/${template_name} \
-  --hostname home-builder \
+  --hostname ${hostname} \
   --cores 1 --memory 2048 --swap 512 \
   --rootfs local-lvm:12 \
   --net0 name=eth0,bridge=vmbr0,ip=${ip}/24,gw=${gateway},firewall=1 \
