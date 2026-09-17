@@ -1,4 +1,8 @@
 # Automating Deployment
+## Table of Contents
+
+- [Bootstrapping](#bootstrapping)
+
 ## Bootstrapping
 ### Install Proxmox VE (PVE)
 See https://proxmox.com/en/products/proxmox-virtual-environment/get-started
