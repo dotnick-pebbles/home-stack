@@ -15,7 +15,7 @@ apt install --yes git
 Still on the PVE host; clone the home-stack repo.
 ```bash
 mkdir -p ~/git && \
-git clone https://github.com/dotnick-pebbles/home-stack.git ~/git
+git clone https://github.com/dotnick-pebbles/home-stack.git ~/git/home-stack
 ```
    \# curl -O https://raw.githubusercontent.com/dotnick-pebbles/home-stack/refs/heads/main/bootstrap/boostrap.env
 
