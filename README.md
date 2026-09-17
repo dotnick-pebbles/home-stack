@@ -21,7 +21,7 @@ git clone https://github.com/dotnick-pebbles/home-stack.git ~/git
 
 Copy the sample env files.
 ```bash
-cp ~/git/home-stack/bootstrap/sample.bootstrap.env ~/git/home-stack/bootstrap/bootstrap.env \
+cp ~/git/home-stack/bootstrap/sample.bootstrap.env ~/git/home-stack/bootstrap/bootstrap.env && \
 cp ~/git/home-stack/env/sample.hosts.env ~/git/home-stack/env/hosts.env
 ```
 Make sure to update 'password' in boostrap/bootstrap.env, as well as any other variables to suit your needs.
