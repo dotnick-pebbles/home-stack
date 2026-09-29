@@ -56,8 +56,8 @@ print_info "Installing private key"
 pct exec ${build_host_id} -- sh -c "wget -O- https://apt.releases.hashicorp.com/gpg |
   gpg --dearmor |
   tee /usr/share/keyrings/hashicorp-archive-keyring.gpg >/dev/null"
-pct exec ${build_host_id} -- sh -c "echo 'deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main'
- | tee /etc/apt/sources.list.d/hashicorp.list"
+pct exec ${build_host_id} -- sh -c "echo 'deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main' |
+  tee /etc/apt/sources.list.d/hashicorp.list"
 
 print_info "Installing terraform"
 pct exec ${build_host_id} -- apt-get update
