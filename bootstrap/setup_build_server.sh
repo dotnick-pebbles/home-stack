@@ -18,7 +18,7 @@ function print_header() {
 home_stack_dir=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")/..
 
 env_files=(
-  "${home_stack_dir}/env/hosts.env"
+  "${home_stack_dir}/vars/hosts.env"
   "${home_stack_dir}/bootstrap/bootstrap.env"
 )
 
