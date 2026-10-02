@@ -62,8 +62,8 @@ function main() {
   exec apt-get install --yes terraform
 
   print_header "Cloning Repo"
-  exec mkdir -p git
-  exec git clone https://github.com/dotnick-pebbles/home-stack git
+  exec mkdir -p /git
+  exec "if cd /git/home-stack; then git pull; else git clone https://github.com/dotnick-pebbles/home-stack git/home-stack; fi"
 
   print_header "All done"
 }
