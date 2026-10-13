@@ -30,7 +30,7 @@ mkdir home-stack && cd home-stack
 
 Download the config file(s) and rename them, removing the 'sample.' prefix.
 ```bash
-curl -O "https://raw.githubusercontent.com/dotnick-pebbles/home-stack/refs/heads/main/sample.common.config.json" && \
+curl -O "https://raw.githubusercontent.com/dotnick-pebbles/home-stack/refs/heads/main/vars/sample.common.config.json" && \
 mv sample.common.config.json common.config.json
 ```
 
