@@ -1,0 +1,76 @@
+{
+  "environment_full_name": "production",
+  "containers": [
+    {
+      "id": 102,
+      "name": "keyvault",
+      "template_name": "debian-13-standard_13.6-1_amd64.tar.zst",
+      "operating_system_type": "debian",
+      "authorized_ssh": {
+        "key_paths": [],
+        "keys_paths": [
+          "/build/authorized_ssh_keys",
+          "/build/authorized_ssh_keys/additional_ssh_keys"
+        ]
+      }
+    },
+    {
+      "id": 103,
+      "name": "docker-repository",
+      "template_name": "debian-13-standard_13.6-1_amd64.tar.zst",
+      "operating_system_type": "debian",
+      "disk_gb": 40
+    }
+  ],
+  "vms": [
+    {
+      "id": 104,
+      "name": "docker-media",
+      "cores": 2,
+      "memory_mib": 6144,
+      "disk_gb": 32,
+      "ip_offset": 201,
+      "machine": "q35",
+      "users": [
+        {
+          "name": "docker-media-production",
+          "uid": 1000
+        }
+      ]
+    },
+    {
+      "id": 105,
+      "name": "docker-cloud",
+      "cores": 2,
+      "memory_mib": 4096,
+      "disk_gb": 32,
+      "ip_offset": 212,
+      "users": [
+        {
+          "name": "docker-cloud-production",
+          "uid": 1000
+        }
+      ]
+    },
+    {
+      "id": 106,
+      "name": "docker-auth",
+      "cores": 1,
+      "memory_mib": 2048,
+      "disk_gb": 10,
+      "users": [
+        {
+          "name": "docker-auth-production",
+          "uid": 1000
+        }
+      ]
+    }
+  ],
+  "network": {
+    "subnet": "192.168.1",
+    "gateway": "192.168.1.1",
+    "dns_servers": [
+      "192.168.1.1"
+    ]
+  }
+}

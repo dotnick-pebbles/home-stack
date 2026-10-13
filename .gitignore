@@ -1,5 +1,12 @@
-### Env
-# Ignore all env files
-*.env
-# except ones starting with
-!sample.*.env
+### Vars
+vars/*
+
+### Terraform
+.terraform
+.terraform.*
+*.tfvars
+*.tfstate
+*.tfstate.backup
+
+### Exceptions
+!vars/sample.*

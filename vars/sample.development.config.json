@@ -1,0 +1,54 @@
+{
+  "environment_full_name": "development",
+  "vms": [
+    {
+      "id": 201,
+      "name": "docker-media",
+      "cores": 2,
+      "memory_mib": 6144,
+      "disk_gb": 32,
+      "ip_offset": 201,
+      "machine": "q35",
+      "users": [
+        {
+          "name": "docker-media-development",
+          "uid": 1000
+        }
+      ]
+    },
+    {
+      "id": 202,
+      "name": "docker-cloud",
+      "cores": 2,
+      "memory_mib": 4096,
+      "disk_gb": 32,
+      "ip_offset": 212,
+      "users": [
+        {
+          "name": "docker-cloud-development",
+          "uid": 1000
+        }
+      ]
+    },
+    {
+      "id": 203,
+      "name": "docker-auth",
+      "cores": 1,
+      "memory_mib": 2048,
+      "disk_gb": 10,
+      "users": [
+        {
+          "name": "docker-auth-development",
+          "uid": 1000
+        }
+      ]
+    }
+  ],
+  "network": {
+    "subnet": "192.168.1",
+    "gateway": "192.168.1.1",
+    "dns_servers": [
+      "192.168.1.1"
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+#cloud-config
+hostname: ${host_name}
+timezone: ${timezone}
+users:
+  - default
+  %{~ for user in users ~}
+  - name: ${user.name}
+    uid: ${user.uid}
+    %{~ if can(user.groups) ~}
+    groups: 
+      %{~ for group in user.groups ~}
+      - ${group}
+      %{~ endfor ~}
+    %{~ endif ~}
+    shell: /bin/bash
+    ssh_authorized_keys:
+      %{~ for key in try(user.authorized_ssh_keys, []) ~}
+      - ${trimspace(key)}
+      %{~ endfor ~}
+      %{~ for key_file_path in try(user.authorized_ssh_key_paths, []) ~}
+        - ${trimspace(file("${key_file_path}"))}
+      %{~ endfor ~}
+      %{~ for key_files_path in try(user.authorized_ssh_keys_paths, []) ~}
+        %{~ for key_file_name in fileset(key_files_path, "*.pub") ~}
+      - ${trimspace(file("${key_files_path}/${key_file_name}"))}
+        %{~ endfor ~}
+      %{~ endfor ~}
+    %{~ if try(user.sudo_nopass, false) == true ~}
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    %{~ endif ~}
+  %{~ endfor ~}
+package_update: true
+packages:
+  - qemu-guest-agent
+  - net-tools
+  - curl
+runcmd:
+  - systemctl enable qemu-guest-agent
+  - systemctl start qemu-guest-agent
+  - echo "done" > /tmp/cloud-config.done

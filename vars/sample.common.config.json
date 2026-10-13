@@ -1,0 +1,34 @@
+{
+  "environment_full_name": "common",
+  "host_settings": {
+    "pool_id": "home-stack",
+    "storage_name": "local-home-stack",
+    "user_name": "home-stack-user",
+    "user_id": "home-stack-user@pve",
+    "token_id": "home-stack-ci",
+    "role_id": "TerraformHomeStack",
+    "subnet": "192.168.1",
+    "gateway": "192.168.1.1",
+    "proxmox_ve_host_name": "pve-test-box",
+    "proxmox_ve_host_ip": "192.168.1.100",
+    "proxmox_ve_host_port": "8006"
+  },
+  "build_server": {
+    "build_host_hostname": "home-builder",
+    "build_host_id": "101",
+    "build_host_ip": "192.168.1.101",
+    "template_name": "debian-13-standard_13.6-1_amd64.tar.zst",
+    "build_path": "/build",
+    "authorized_ssh_keys_path": "/build/authorized_ssh_keys",
+    "additional_ssh_keys_path": "/build/authorized_ssh_keys/additional_ssh_keys",
+    "git_path": "/build/git",
+    "repo_path": "/build/git/home-stack"
+  },
+  "cloud_images": [
+    {
+      "url": "https://cloud.debian.org/images/cloud/trixie/20261001-2618/debian-13-genericcloud-amd64-20261001-2618.raw",
+      "file_name": "debian-13-genericcloud-amd64-20261001-2618.raw",
+      "content_type": "import"
+    }
+  ]
+}
