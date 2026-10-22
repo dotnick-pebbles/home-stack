@@ -26,8 +26,13 @@
   },
   "cloud_images": [
     {
-      "url": "https://cloud.debian.org/images/cloud/trixie/20261001-2618/debian-13-genericcloud-amd64-20261001-2618.raw",
-      "file_name": "debian-13-genericcloud-amd64-20261001-2618.raw",
+      "url": "https://cloud.debian.org/images/cloud/trixie/20261017-2634/debian-13-generic-amd64-20261017-2634.raw",
+      "file_name": "debian-13-generic-amd64-20261017-2634.raw",
+      "content_type": "import"
+    },
+    {
+      "url": "https://cloud.debian.org/images/cloud/trixie/20261017-2634/debian-13-genericcloud-amd64-20261017-2634.raw",
+      "file_name": "debian-13-genericcloud-amd64-20261017-2634.raw",
       "content_type": "import"
     }
   ]

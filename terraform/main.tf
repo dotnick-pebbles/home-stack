@@ -36,8 +36,7 @@ module "docker_vms" {
   memory_mib   = each.value.memory_mib
   disksize_gb  = each.value.disk_gb
 
-  # If cloud_image_id not specified, default to the latest cloud image that has been downloaded
-  cloud_image_id = try(each.value.cloud_image_id, reverse(sort(tolist(values(local.common_data.cloud_image_ids))))[0])
+  cloud_image_id = local.common_data.cloud_image_ids[each.value.cloud_image_id_key]
 }
 
 # Create containers using JSON configuration

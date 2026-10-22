@@ -4,6 +4,7 @@
     {
       "id": 201,
       "name": "docker-media",
+      "cloud_image_id_key": "debian-13-generic-amd64-20261017-2634.raw",
       "cores": 2,
       "memory_mib": 6144,
       "disk_gb": 32,
@@ -19,6 +20,7 @@
     {
       "id": 202,
       "name": "docker-cloud",
+      "cloud_image_id_key": "debian-13-genericcloud-amd64-20261017-2634.raw",
       "cores": 2,
       "memory_mib": 4096,
       "disk_gb": 32,
@@ -33,6 +35,7 @@
     {
       "id": 203,
       "name": "docker-auth",
+      "cloud_image_id_key": "debian-13-genericcloud-amd64-20261017-2634.raw",
       "cores": 1,
       "memory_mib": 2048,
       "disk_gb": 10,
