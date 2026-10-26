@@ -4,7 +4,13 @@ variable "node_name" {
 variable "pool_id" {
   type = string
 }
-variable "datastore_id" {
+variable "disk_datastore_id" {
+  type = string
+}
+variable "cloud_init_disk_datastore_id" {
+  type = string
+}
+variable "snippet_datastore_id" {
   type = string
 }
 variable "vm_id" {

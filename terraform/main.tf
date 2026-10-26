@@ -2,7 +2,7 @@ module "download_cloud_images" {
   count        = var.environment_full_name == "common" ? 1 : 0
   source       = "../../modules/cloud-image-download"
   cloud_images = local.cloud_images
-  datastore_id = local.datastore_id
+  datastore_id = local.import_datastore_id
   node_name    = local.proxmox_ve_host_name
 }
 
@@ -20,9 +20,12 @@ module "docker_vms" {
   source   = "../../modules/vm-cloud-init"
   for_each = local.vm_list
 
-  node_name    = local.proxmox_ve_host_name
-  pool_id      = local.pool_id
-  datastore_id = local.datastore_id
+  node_name                    = local.proxmox_ve_host_name
+  pool_id                      = local.pool_id
+  disk_datastore_id            = local.disk_datastore_id
+  cloud_init_disk_datastore_id = local.disk_datastore_id
+  snippet_datastore_id         = local.snippet_datastore_id
+
   environment  = var.environment_full_name
   vm_id        = each.value.id
   vm_machine   = try(each.value.machine, null)
@@ -46,7 +49,8 @@ module "docker_containers" {
 
   node_name             = local.proxmox_ve_host_name
   pool_id               = local.pool_id
-  datastore_id          = local.datastore_id
+  template_datastore_id = local.container_template_datastore_id
+  disk_datastore_id     = local.container_datastore_id
   environment           = var.environment_full_name
   container_id          = each.value.id
   container_name        = each.value.name

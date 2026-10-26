@@ -5,7 +5,10 @@ variable "node_name" {
 variable "pool_id" {
   type = string
 }
-variable "datastore_id" {
+variable "template_datastore_id" {
+  type = string
+}
+variable "disk_datastore_id" {
   type = string
 }
 variable "container_id" {

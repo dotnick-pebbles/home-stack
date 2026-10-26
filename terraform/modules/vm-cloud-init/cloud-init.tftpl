@@ -7,7 +7,7 @@ users:
   - name: ${user.name}
     uid: ${user.uid}
     %{~ if can(user.groups) ~}
-    groups: 
+    groups:
       %{~ for group in user.groups ~}
       - ${group}
       %{~ endfor ~}

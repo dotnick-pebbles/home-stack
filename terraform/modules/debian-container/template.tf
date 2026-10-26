@@ -36,7 +36,7 @@ resource "proxmox_virtual_environment_container" "debian_container" {
   # tags = [var.environment, "terraform", "debian"]
 
   operating_system {
-    template_file_id = "${var.datastore_id}:vztmpl/${var.template_name}"
+    template_file_id = "${var.template_datastore_id}:vztmpl/${var.template_name}"
     type             = var.operating_system_type
   }
 
@@ -51,7 +51,7 @@ resource "proxmox_virtual_environment_container" "debian_container" {
 
   disk {
     size         = var.disksize_gb
-    datastore_id = var.datastore_id
+    datastore_id = var.disk_datastore_id
   }
 
   network_interface {

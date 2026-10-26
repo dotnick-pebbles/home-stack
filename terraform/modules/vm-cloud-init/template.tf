@@ -1,14 +1,13 @@
 resource "proxmox_virtual_environment_file" "user_data_cloud_config" {
   content_type = "snippets"
-  datastore_id = var.datastore_id
+  datastore_id = var.snippet_datastore_id
   node_name    = var.node_name
 
   source_raw {
     data = templatefile("${path.module}/cloud-init.tftpl", {
-      timezone                 = var.timezone
-      host_name                = var.vm_name
-      user_name                = var.vm_name
-      users                    = var.users
+      timezone  = var.timezone
+      host_name = var.vm_name
+      users     = var.users
     })
 
     file_name = "vm-${var.vm_name}-cloud-config.yaml"
@@ -23,7 +22,7 @@ resource "proxmox_virtual_environment_vm" "cloud_vm" {
   pool_id   = var.pool_id
 
   initialization {
-    datastore_id = var.datastore_id
+    datastore_id = var.cloud_init_disk_datastore_id
 
     ip_config {
       ipv4 {
@@ -31,7 +30,7 @@ resource "proxmox_virtual_environment_vm" "cloud_vm" {
         gateway = var.gateway
       }
     }
-    
+
     dns {
       servers = var.dns_servers
     }
@@ -59,7 +58,7 @@ resource "proxmox_virtual_environment_vm" "cloud_vm" {
   }
 
   disk {
-    datastore_id = var.datastore_id
+    datastore_id = var.disk_datastore_id
     import_from  = var.cloud_image_id
     interface    = "scsi0"
     discard      = "on"
