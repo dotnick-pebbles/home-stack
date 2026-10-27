@@ -1,5 +1,4 @@
 #!/bin/bash
-
 function export_env_vars() {
     while IFS='=' read -r key value; do
         # Skip empty lines and comments (lines starting with #)
@@ -7,8 +6,8 @@ function export_env_vars() {
 
         key=$(echo "$key" | xargs)
 
-        value="${value%\"}"  # Remove trailing quote
-        value="${value#\"}"  # Remove leading quote
+        value="${value%\"}" # Remove trailing quote
+        value="${value#\"}" # Remove leading quote
 
         export "TF_VAR_${key}=${value}"
     done <$1
@@ -22,10 +21,25 @@ function export_json_vars() {
     done < <(jq -c 'to_entries[]' "$1")
 }
 
-home_stack_dir=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")/..
-repo_path="/build/git/home-stack"
+while getopts 'a:e:v:s:l:p' OPTION; do
+    case "$OPTION" in
+    a) action="$OPTARG" ;;
+    e) environment="$OPTARG" ;;
+    v) vars_path="$OPTARG" ;;
+    s) sub_args="$OPTARG" ;;
+    l) log_level="$OPTARG" ;;
+    p) auto_approve="-auto-approve" ;;
+    ?)
+        echo "Invalid flag provided"
+        exit 1
+        ;;
+    esac
+done
+shift "$(($OPTIND - 1))"
+
+repo_path=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")/..
 tf_envs_path="${repo_path}/terraform/environments"
-export TF_VAR_vars_path="${repo_path}/vars"
+export TF_VAR_vars_path=${vars_path}
 
 set -o errexit -o errtrace -o pipefail
 
@@ -37,7 +51,7 @@ handle_error() {
 trap handle_error ERR
 
 # Parse environment and map to root module
-case $1 in
+case ${environment} in
 common | Common | COMMON)
     var_env="common"
     ;;
@@ -48,19 +62,20 @@ prod | Prod | PROD)
     var_env="production"
     ;;
 *)
-    echo "$1 is not valid" 1>&2
-    return
+    echo "${environment} is not a valid environment" 1>&2
+    false
     ;;
 esac
 
-git -C "${home_stack_dir}" pull
-# export TF_LOG=DEBUG
+git -C "${repo_path}" pull
+export TF_LOG=${log_level:-}
+state_path=$TF_DATA_DIR/state
 
 # Since the variable files may contain variables not used by Terraform, TF_VAR_* environment variables
 # are used, instead of passing the file file to '-var-file' in the terraform command later,
 # to avoid warnings about undeclared varialbes.
-export_env_vars ${TF_VAR_vars_path}/secrets.env
-export_json_vars ${TF_VAR_vars_path}/common.config.json
-export_json_vars ${TF_VAR_vars_path}/${var_env}.config.json
+export_env_vars ${vars_path}/secrets.env
+export_json_vars ${vars_path}/common.config.json
+export_json_vars ${vars_path}/${var_env}.config.json
 
-terraform -chdir="$tf_envs_path/${var_env}" $2 "${@:3}"
+terraform -chdir="$tf_envs_path/${var_env}" ${action} ${auto_approve} ${sub_args} ${arguments}
