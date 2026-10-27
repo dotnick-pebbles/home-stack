@@ -126,7 +126,7 @@ load_configuration() {
   error="\033[0;91m"
   reset="\033[0m"
 
-  build_host_env_location=.p.env
+  build_host_env_location='$HOME/.p.env'
   build_host_ssh_type=ed25519
   build_host_ssh_path='$HOME/.ssh'
   build_host_ssh_file_name='$(hostname)__$(echo $USER)__id_'${build_host_ssh_type}
