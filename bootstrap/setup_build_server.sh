@@ -88,7 +88,7 @@ main() {
   print_header "Installing Terraform"
   print_info "Installing prerequisites"
   pct_exec apt-get update
-  pct_exec apt-get install --yes gnupg git jq
+  pct_exec apt-get install --yes gnupg git jq curl
 
   print_info "Installing private key"
   pct_exec "wget -O- https://apt.releases.hashicorp.com/gpg |
@@ -114,6 +114,20 @@ main() {
 source ${repo_path}/bootstrap/home-stack.bashrc
 #### end of home-stack
 EOF"
+
+  print_header "Creating config files"
+  vars_path=${HOME_STACK_VARS_PATH:-/build/vars/home-stack}
+  print_info "Copying common.config.json to build server"
+  pct_exec "mkdir -p ${vars_path}"
+
+  pct_exec "[ -f ${vars_path}/$(basename $config_file) ]" ||
+    pct push ${build_host_id} ${config_file} "${vars_path}/$(basename $config_file)"
+
+  print_info "Cloning sample files"
+  pct_exec "for sample_file in "$repo_path/vars/*"; do
+    sample_name=\$(basename \$sample_file)
+    cp -rn \$sample_file ${vars_path}/\${sample_name#sample.}
+   done"
 
   print_header "All done"
 }

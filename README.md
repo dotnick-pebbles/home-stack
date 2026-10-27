@@ -61,8 +61,15 @@ Terraform needs a way to communicate with the Proxmox VE server. For that, creat
 1. Click 'Add' and copy the secret value. We will need this later.
 ![Copy secret](img/tf-config-4.png)
 
-Copy the sample .secrets.env.
+
+Copy the config file(s) and rename them, removing the 'sample.' prefix.
+Run the following from the PVE host to copy the common.config.json file.
 ```bash
-cp ~/git/home-stack/vars/sample.secrets.env ~/git/home-stack/vars/secrets.env
+pct exec 101 -- sh -c "mkdir -p /build/vars/home-stack" && \
+pct exec 101 -- sh -c "[ -f /build/vars/home-stack/vars/common.config.json ]" || pct push 101 ./common.config.json /build/vars/home-stack/common.config.json && \
+pct exec 101 -- sh -c "for sample_file in /build/git/home-stack/vars/*; do
+   sample_name=\$(basename \$sample_file)
+   cp -rn \$sample_file  /build/vars/home-stack/\${sample_name#sample.}
+   done"
 ```
 Update the value of `proxmox_ve_api_token`. Replace 'token_id' and 'token_secret' with the values from the popup. Otherwise the format is `user_name@realm!token_id=token_secret_value` In this example the value would be 'terraform_service@pve!ci=2ff82d8b-73c5-47c6-89e5-a9c806bbe557'. Also update `proxmox_ve_ssh_password` and `proxmox_ve_ssh_password`.
