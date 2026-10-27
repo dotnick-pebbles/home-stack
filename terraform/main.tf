@@ -1,9 +1,9 @@
 module "download_cloud_images" {
-  count        = var.environment_full_name == "common" ? 1 : 0
-  source       = "../../modules/cloud-image-download"
-  cloud_images = local.cloud_images
-  datastore_id = local.import_datastore_id
-  node_name    = local.proxmox_ve_host_name
+  count                = var.environment_full_name == "common" ? 1 : 0
+  source               = "../../modules/cloud-image-download"
+  cloud_images         = local.cloud_images
+  default_datastore_id = local.import_datastore_id
+  node_name            = local.proxmox_ve_host_name
 }
 
 data "terraform_remote_state" "common_data" {
