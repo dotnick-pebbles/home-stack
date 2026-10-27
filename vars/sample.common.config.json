@@ -34,6 +34,11 @@
       "url": "https://cloud.debian.org/images/cloud/trixie/20261017-2634/debian-13-genericcloud-amd64-20261017-2634.raw",
       "file_name": "debian-13-genericcloud-amd64-20261017-2634.raw",
       "content_type": "import"
+    },
+    {
+      "url": "http://download.proxmox.com/images/system/debian-13-standard_13.6-1_amd64.tar.zst",
+      "file_name": "debian-13-standard_13.6-1_amd64.tar.zst",
+      "content_type": "vztmpl"
     }
   ]
 }
